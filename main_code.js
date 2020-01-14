@@ -24,15 +24,12 @@ function capitalize(string){
     playerSelection = element.indexOf(playerSelection);
     if (playerSelection != -1){
       if (playerSelection == computerSelection){
-        i++;
         return console.log("Draw!");
       } else if (element[playerSelection+1] == element[computerSelection]) {
         computerScore ++;
-        i ++;
         return console.log("You Lose "+ element[computerSelection] + " defets " + element[playerSelection]);
       } else {
         playerScore ++;
-        i++;
         return console.log("You Win! " + element[playerSelection] + " defets " + element[computerSelection]);
       }
     }
