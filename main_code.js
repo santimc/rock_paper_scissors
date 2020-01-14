@@ -8,21 +8,16 @@ function computerPlay() {
       //return ("unexpected error"; console.error("Random compueter selection");)
 }
 
-function capitalize(string)
-{
+function capitalize(string){
   string = string.toLowerCase();
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-function game() {
-  let i = 0;
   console.log("Computer Score: " + computerScore + " Player Score: " + playerScore);
-  while (i < 5) {
-    let playerSelection = prompt("Choose Wisely");
-    let computerSelection = computerPlay();
-    playRound(playerSelection, computerSelection);
-    console.log("Computer Score: " + computerScore + " Player Score: " + playerScore);
-  }
+  const buttons = document.querySelectorAll('button');
+  buttons.forEach((button) => {
+    button.addEventListener('click', game);
+  });
 
   function playRound(playerSelection, computerSelection) {
     playerSelection = capitalize(playerSelection);
@@ -43,6 +38,11 @@ function game() {
     }
     return console.error("Try typing again");
   }
-}
 
-game();
+function game(e){
+  let playerSelection = e.target.id;
+  let computerSelection = computerPlay();
+  playRound(playerSelection, computerSelection);
+  const container = document.querySelector('#container');
+  console.log("Computer Score: " + computerScore + " Player Score: " + playerScore);
+}
