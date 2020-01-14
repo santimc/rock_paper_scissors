@@ -1,14 +1,25 @@
 const element = ["Rock", "Paper", "Scissors", "Rock"];
 let computerScore = 0;
 let playerScore = 0;
+
 const diplayPlayerScore = document.querySelector('#diplayPlayerScore');
 const diplayComputerScore = document.querySelector('#diplayComputerScore');
-const dispayComputerSelection = document.querySelector('#dispayComputerSelection')
+const dispayComputerSelection = document.querySelector('#dispayComputerSelection');
+const displayWiner = document.querySelector('#displayWiner');
 
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+  button.addEventListener('click', game);
+});
 
 function dispayScore() {
   diplayComputerScore.textContent = computerScore;
   diplayPlayerScore.textContent = playerScore;
+}
+
+function resetScore(){
+  computerScore = 0;
+  playerScore = 0;
 }
 
 function computerPlay() {
@@ -22,12 +33,6 @@ function capitalize(string){
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-  console.log("Computer Score: " + computerScore + " Player Score: " + playerScore);
-  const buttons = document.querySelectorAll('button');
-  buttons.forEach((button) => {
-    button.addEventListener('click', game);
-  });
-
 function playRound(playerSelection, computerSelection) {
   playerSelection = capitalize(playerSelection);
   playerSelection = element.indexOf(playerSelection);
@@ -36,11 +41,9 @@ function playRound(playerSelection, computerSelection) {
       return console.log("Draw!");
     } else if (element[playerSelection+1] == element[computerSelection]) {
       computerScore ++;
-      dispayScore();
       return console.log("You Lose "+ element[computerSelection] + " defets " + element[playerSelection]);
     } else {
       playerScore ++;
-      dispayScore();
       return console.log("You Win! " + element[playerSelection] + " defets " + element[computerSelection]);
     }
   }
@@ -52,6 +55,12 @@ function game(e) {
   let computerSelection = computerPlay();
   dispayComputerSelection.textContent = element[computerSelection];
   playRound(playerSelection, computerSelection);
-  const container = document.querySelector('#container');
-  console.log("Computer Score: " + computerScore + " Player Score: " + playerScore);
+  dispayScore();
+  if (playerScore == 5){
+    displayWiner.textContent = "Player Wins";
+    resetScore();
+  } else if (computerScore == 5) {
+    displayWiner.textContent = "Computer Wins";
+    resetScore();
+  } else {displayWiner.textContent = "";}
 }
